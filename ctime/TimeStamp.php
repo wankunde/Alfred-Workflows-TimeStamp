@@ -1,5 +1,5 @@
 <?php
-ini_set('date.timezone', 'Asia/Shanghai');
+ini_set('date.timezone', 'Etc/GMT-8');
 require_once('workflows.php');
 
 class TimeStamp
@@ -43,19 +43,24 @@ class TimeStamp
         if ($query == 'now') {
             $workflows->result($query,
                 date('Y年m月d日 H时i分s秒', time()),
-                "系统时间：" . date('Y年m月d日 H时i分s秒', time()),
+                "中国时间：" . date('Y年m月d日 H时i分s秒', time()),
+                '',
+                'icon.png', false);
+            $workflows->result($query,
+                date('Y年m月d日 H时i分s秒', strtotime("-15 hours")),
+                "美国时间：" . date('Y年m月d日 H时i分s秒', strtotime("-15 hours")),
                 '',
                 'icon.png', false);
 
             $workflows->result($query,
                 date('Y-m-d H:i:s', time()),
-                "系统时间：" . date('Y-m-d H:i:s', time()),
+                "中国时间：" . date('Y-m-d H:i:s', time()),
                 '',
                 'icon.png', false);
 
             $workflows->result($query,
                 date('YmdHis', time()),
-                "系统时间：" . date('YmdHis', time()),
+                "中国时间：" . date('YmdHis', time()),
                 '',
                 'icon.png', false);
 
@@ -78,7 +83,13 @@ class TimeStamp
             if (preg_match('/^\d{1,10}$/', $query)) {
                 $workflows->result($query,
                     date('Y-m-d H:i:s', $query),
-                    '目标时间：' . date('Y-m-d H:i:s', $query),
+                    '中国时间：' . date('Y-m-d H:i:s', $query),
+                    $this->getDifference($query, time()),
+                    'icon.png', false);
+		
+		$workflows->result($query,
+                    date('Y-m-d H:i:s', $query + strtotime("-15 hours") - time()),
+                    '美国时间：' . date('Y-m-d H:i:s', $query + strtotime("-15 hours") - time()),
                     $this->getDifference($query, time()),
                     'icon.png', false);
                 echo $workflows->toxml();
@@ -88,13 +99,23 @@ class TimeStamp
                 $resQuery = $query / 1000;
                 $workflows->result($resQuery,
                     date('Y-m-d H:i:s', $resQuery),
-                    '目标时间：' . date('Y-m-d H:i:s', $resQuery),
+                    '中国时间：' . date('Y-m-d H:i:s', $resQuery),
+                    $this->getDifference($resQuery, time()),
+                    'icon.png', false);
+                $workflows->result($resQuery,
+                    date('Y-m-d H:i:s', $resQuery + strtotime("-15 hours") - time()),
+                    '美国时间：' . date('Y-m-d H:i:s', $resQuery + strtotime("-15 hours") - time()),
                     $this->getDifference($resQuery, time()),
                     'icon.png', false);
                 echo $workflows->toxml();
             }
         }
         if ($this->isDateTime($query)) {
+            $workflows->result($query,
+                date('Y-m-d H:i:s', strtotime($query) + strtotime("-15 hours") - time()),
+                '美国时间：' . date('Y-m-d H:i:s', strtotime($query) + strtotime("-15 hours") - time()),
+                '',
+                'icon.png', false);
             $workflows->result($query,
                 strtotime($query),
                 '目标时间戳：' . strtotime($query),

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>hangyutech.com</string>
+	<string>ctime</string>
 	<key>connections</key>
 	<dict>
 		<key>B21D0E9C-5FF8-4134-9D87-7F8CBC1D0B99</key>
@@ -27,7 +27,7 @@
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>Timestamp</string>
+	<string>China time</string>
 	<key>objects</key>
 	<array>
 		<dict>
@@ -40,7 +40,7 @@
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>keyword</key>
-				<string>atime</string>
+				<string>ctime</string>
 				<key>queuedelaycustom</key>
 				<integer>1</integer>
 				<key>queuedelayimmediatelyinitially</key>
